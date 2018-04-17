@@ -17,14 +17,14 @@ object Funciones {
     for (row <- 0 to 10) {
       // Se muestran 10 10 columnas
       for (col <- 0 to row)
-        print(calcularValorTrianguloPascal(col, row) + " ")
+        print(calcularValorTrianguloPascal(row, col) + " ")
 
       // Salto de linea final para mejorar la presentacion
       println()
     }
 
     // Se muestra el valor que debe ocupar la columna 5 en la fila 10
-    println(calcularValorTrianguloPascal(10, 15))
+    println(calcularValorTrianguloPascal(15, 10))
     println(calcularValorTrianguloPascal(0, 0))
     println(chequearBalance(List('(','(',')',')',')','(')))
   }
@@ -36,9 +36,9 @@ object Funciones {
     * @param fila Número de fila del triángulo
     * @return Valor del triángulo de Pascal en esa posición
     */
-  def calcularValorTrianguloPascal(columna: Int, fila: Int): Int = {
+  def calcularValorTrianguloPascal(fila: Int, columna: Int): Int = {
     if (columna == 0 || columna == fila) 1
-    else calcularValorTrianguloPascal(columna-1,fila-1) + calcularValorTrianguloPascal(columna,fila-1)
+    else calcularValorTrianguloPascal(fila-1, columna-1) + calcularValorTrianguloPascal(fila-1, columna)
   }
 
   /**
