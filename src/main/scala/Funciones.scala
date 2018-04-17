@@ -26,10 +26,11 @@ object Funciones {
     // Se muestra el valor que debe ocupar la columna 5 en la fila 10
     println(calcularValorTrianguloPascal(10, 15))
     println(calcularValorTrianguloPascal(0, 0))
+    println(chequearBalance(List('(','(',')',')',')','(')))
   }
 
   /**
-    * Ejercicio 1: funcion para generar el triangulo de Pascal
+    * Ejercicio 1: función para generar el triángulo de Pascal
     *
     * @param columna Número de columna del triángulo
     * @param fila Número de fila del triángulo
@@ -41,12 +42,22 @@ object Funciones {
   }
 
   /**
-    * Ejercicio 2: funcion para chequear el balance de parentesis
+    * Ejercicio 2: función para chequear el balance de paréntesis
     *
     * @param cadena cadena a analizar
-    * @return valor booleano con el resultado de la operacion
+    * @return valor booleano con el resultado de la operación
     */
-  def chequearBalance(cadena: List[Char]): Boolean = ???
+  def chequearBalance(cadena: List[Char]): Boolean = {
+    @annotation.tailrec
+    def go(lista: List[Char], acum: Int): Boolean ={
+      if (lista.isEmpty) acum == 0
+      else if (acum < 0) false
+      else if (lista.head == '(') go(lista.tail, acum+1)
+      else if (lista.head == ')') go(lista.tail, acum-1)
+      else go(lista.tail,acum)
+    }
+    go (cadena, 0)
+  }
 
   /**
     * Ejercicio 3: funcion para determinar las posibles formas de devolver el
