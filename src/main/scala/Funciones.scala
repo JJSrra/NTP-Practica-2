@@ -31,11 +31,14 @@ object Funciones {
   /**
     * Ejercicio 1: funcion para generar el triangulo de Pascal
     *
-    * @param columna
-    * @param fila
-    * @return
+    * @param columna Número de columna del triángulo
+    * @param fila Número de fila del triángulo
+    * @return Valor del triángulo de Pascal en esa posición
     */
-  def calcularValorTrianguloPascal(columna: Int, fila: Int): Int = ???
+  def calcularValorTrianguloPascal(columna: Int, fila: Int): Int = {
+    if (columna == 0 || columna == fila) 1
+    else calcularValorTrianguloPascal(columna-1,fila-1) + calcularValorTrianguloPascal(columna,fila-1)
+  }
 
   /**
     * Ejercicio 2: funcion para chequear el balance de parentesis
