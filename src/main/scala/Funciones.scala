@@ -27,6 +27,7 @@ object Funciones {
     println(calcularValorTrianguloPascal(15, 10))
     println(calcularValorTrianguloPascal(0, 0))
     println(chequearBalance(List('(','(',')',')',')','(')))
+    println(contarCambiosPosibles(23, List(1,2,5,10)))
   }
 
   /**
@@ -42,7 +43,8 @@ object Funciones {
   }
 
   /**
-    * Ejercicio 2: función para chequear el balance de paréntesis
+    * Ejercicio 2: función para chequear el balance de paréntesis,
+    * mediante Tail Recursive
     *
     * @param cadena cadena a analizar
     * @return valor booleano con el resultado de la operación
@@ -60,14 +62,32 @@ object Funciones {
   }
 
   /**
-    * Ejercicio 3: funcion para determinar las posibles formas de devolver el
-    * cambio de una determinada cantidad con un conjunto de monedas
+    * Ejercicio 3: función para determinar las posibles formas de devolver el
+    * cambio de una determinada cantidad con un conjunto de monedas dado
     *
-    * @param cantidad
-    * @param monedas
-    * @return contador de numero de vueltas posibles
+    * @param cantidad Cantidad a devolver
+    * @param monedas Lista de valores de monedas de las que se dispone
+    * @return Contador de número de vueltas posibles
     */
-  def contarCambiosPosibles(cantidad: Int, monedas: List[Int]): Int = ???
+  def contarCambiosPosibles(cantidad: Int, monedas: List[Int]): Int = {
+    def cambios(cantidad: Int, monedas: List[Int]): Int = {
+      if (cantidad == 0) 1
+      else if (monedas.isEmpty) 0
+      else if (cantidad < monedas.head) 0
+      else {
+        var acum = 0
+        for (i <- 0 to cantidad by monedas.head){
+          acum += cambios(cantidad-i, monedas.tail)
+        }
+        acum
+      }
+    }
+
+    val monedasOrdenadas = monedas.sorted
+    if (cantidad > 0) cambios(cantidad, monedas)
+    else 0
+
+  }
 
   /**
    * Metodo generico para busqueda binaria
