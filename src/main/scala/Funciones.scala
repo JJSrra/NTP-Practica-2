@@ -28,6 +28,10 @@ object Funciones {
     println(calcularValorTrianguloPascal(0, 0))
     println(chequearBalance(List('(','(',')',')',')','(')))
     println(contarCambiosPosibles(23, List(1,2,5,10)))
+
+    val numeros = Array(1,2,4,5,7,9,11,15,18,20,22,27)
+    def criterioMenor = (a: Int, b: Int) => {a < b}
+    println(busquedaBinaria(numeros, 15, criterioMenor))
   }
 
   /**
@@ -90,13 +94,34 @@ object Funciones {
   }
 
   /**
-   * Metodo generico para busqueda binaria
+   * Método genérico para búsqueda binaria
    * @param coleccion conjunto de datos sobre los que buscar
    * @param aBuscar elemento a buscar
    * @param criterio para comparar dos elementos de tipo A
-   * @tparam A parametro de tipo
-   * @return posicion del valor buscado o -1 en caso de no hallarlo
+   * @tparam A parámetro de tipo
+   * @return posición del valor buscado o -1 en caso de no hallarlo
    */
   def busquedaBinaria[A](coleccion : Array[A], aBuscar: A, 
-                       criterio : (A,A) => Boolean) : Int = ???
+                       criterio : (A,A) => Boolean) : Int = {
+    
+    @annotation.tailrec
+    def go(coleccion : Array[A], acum: Int): Int = {
+      val medio = coleccion.length / 2
+      val valorMedio = coleccion(medio)
+      if (valorMedio == aBuscar) acum+medio
+      else if (coleccion.length == 1) -1
+      else {
+        if (criterio(valorMedio,aBuscar) == true){
+          if (medio+1 == coleccion.length) -1
+          else go(coleccion.slice(medio+1,coleccion.length),acum+medio+1)
+        }
+        else{
+          if (medio == 0) -1
+          else go(coleccion.slice(0,medio),acum)
+        }
+      }
+    }
+
+    go(coleccion,0)
+  }
 }
