@@ -1,5 +1,6 @@
 import org.scalacheck.{Gen, Properties}
-import org.scalacheck.Prop.{forAll, all}
+import org.scalacheck.Prop.{forAll, all, AnyOperators}
+import org.scalacheck.Gen._
 
 object FuncionesTest extends Properties("FuncionesTest"){
 
@@ -73,5 +74,22 @@ object FuncionesTest extends Properties("FuncionesTest"){
     val cambio6 = Funciones.contarCambiosPosibles(20, List()) == 0
 
     all (cambio1, cambio2, cambio3, cambio4, cambio5, cambio6)
+  }
+
+  // =============================================================
+
+  // BÚSQUEDA BINARIA
+
+  val numeros = listOf(Gen.choose(-100, 100))
+
+  property("La búsqueda binaria da los resultados esperados") = {
+    forAll(numeros) { (xs) => {
+      val numerosOrdenados = xs.sorted
+      val aBuscar = Gen.choose(-100,100).sample.getOrElse(0)
+      val index = numerosOrdenados.indexOf(aBuscar)
+      val indexBusqBinaria = Funciones.busquedaBinaria[Int](numerosOrdenados.toArray, aBuscar, _ < _)
+
+      (index == indexBusqBinaria) || (numerosOrdenados(index) == numerosOrdenados(indexBusqBinaria))
+    }}
   }
 }
