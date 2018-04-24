@@ -69,6 +69,9 @@ object FuncionesTest extends Properties("FuncionesTest"){
     val cambio2 = Funciones.contarCambiosPosibles(4, List(1,2)) == 3
     val cambio3 = Funciones.contarCambiosPosibles(15, List(20,25)) == 0
     val cambio4 = Funciones.contarCambiosPosibles(8, List(2,4,8)) == 4
-    all (cambio1, cambio2, cambio3, cambio4)
+    val cambio5 = Funciones.contarCambiosPosibles(0, List(1,2,3,4,5)) == 0
+    val cambio6 = Funciones.contarCambiosPosibles(20, List()) == 0
+
+    all (cambio1, cambio2, cambio3, cambio4, cambio5, cambio6)
   }
 }
