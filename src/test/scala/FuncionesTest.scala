@@ -1,5 +1,5 @@
 import org.scalacheck.{Gen, Properties}
-import org.scalacheck.Prop.{forAll}
+import org.scalacheck.Prop.{forAll, all}
 
 object FuncionesTest extends Properties("FuncionesTest"){
 
@@ -58,5 +58,17 @@ object FuncionesTest extends Properties("FuncionesTest"){
       // de ambos métodos sea false o que el de la propiedad sea true.
       (!Funciones.chequearBalance(cadena) == !comprobarParentesis(cadena)) || comprobarParentesis(cadena)
     }}
+  }
+
+  // =============================================================
+
+  // CAMBIO DE MONEDAS
+
+  property("Los cambios de monedas son correctos") = {
+    val cambio1 = Funciones.contarCambiosPosibles(23, List(1,2,5,10)) == 52
+    val cambio2 = Funciones.contarCambiosPosibles(4, List(1,2)) == 3
+    val cambio3 = Funciones.contarCambiosPosibles(15, List(20,25)) == 0
+    val cambio4 = Funciones.contarCambiosPosibles(8, List(2,4,8)) == 4
+    all (cambio1, cambio2, cambio3, cambio4)
   }
 }
