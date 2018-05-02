@@ -72,13 +72,31 @@ object Lista {
    }
 
    /**
-     * Metodo para agregar el contenido de dos listas
+     * Método para agregar el contenido de dos listas
      * @param lista1
      * @param lista2
      * @tparam A
      * @return
      */
-   def concatenar[A](lista1: Lista[A], lista2: Lista[A]): Lista[A] = ???
+   def concatenar[A](lista1: Lista[A], lista2: Lista[A]): Lista[A] = {
+     lista1 match {
+       case Nil => lista2
+       case Cons(cabeza, cola) => Cons(cabeza, concatenar(cola, lista2))
+     }
+   }
+
+  /**
+    * Método para pasar un objeto de tipo Lista a tipo List, para hacer comprobaciones
+    * @param lista
+    * @tparam A
+    * @return
+    */
+   def toList[A](lista : Lista[A]):List[A] = {
+     lista match {
+       case Nil => List()
+       case Cons(cabeza, cola) => cabeza::toList(cola)
+     }
+   }
 
    /**
      * Funcion de utilidad para aplicar una funcion de forma sucesiva a los

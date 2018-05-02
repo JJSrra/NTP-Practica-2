@@ -4,7 +4,7 @@ import org.scalacheck.Gen._
 
 object ListaTest extends Properties("ListaTest"){
   // Método de generación de listas de valores enteros
-  val secuenciaEnteros = listOf(choose(0,10))
+  val secuenciaEnteros = listOfN(10,choose(0,10))
 
   secuenciaEnteros.sample
   println(secuenciaEnteros)
@@ -38,6 +38,16 @@ object ListaTest extends Properties("ListaTest"){
         val multList = xs.map(x => x.toDouble).product
         val multLista = Lista.productoEnteros(lista)
         multList ?= multLista
+      }
+    }
+
+  property("Concatenación de cadenas") =
+    forAll(secuenciaEnteros){
+      xs => {
+        val lista : Lista[Int] = Lista(xs : _*)
+        val concatList = xs:::xs
+        val concatLista = Lista.toList(Lista.concatenar(lista,lista))
+        concatList ?= concatLista
       }
     }
 }
