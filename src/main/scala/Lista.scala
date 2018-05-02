@@ -99,7 +99,7 @@ object Lista {
    }
 
    /**
-     * Funcion de utilidad para aplicar una funcion de forma sucesiva a los
+     * Función de utilidad para aplicar una funcion de forma sucesiva a los
      * elementos de la lista
      * @param lista
      * @param neutro
@@ -109,21 +109,30 @@ object Lista {
      * @return
      */
    def foldRight[A, B](lista : Lista[A], neutro : B)
-                      (funcion : (A, B) => B): B = ???
+                      (funcion : (A, B) => B): B = {
+     lista match {
+       case Nil => neutro
+       case Cons(cabeza, cola) => funcion(cabeza, foldRight(cola, neutro)(funcion))
+     }
+   }
 
    /**
      * Suma mediante foldRight
      * @param listaEnteros
      * @return
      */
-   def sumaFoldRight(listaEnteros : Lista[Int]) : Double = ???
+   def sumaFoldRight(listaEnteros : Lista[Int]) : Double = {
+     foldRight(listaEnteros,0)(_ + _)
+   }
 
    /**
      * Producto mediante foldRight
      * @param listaEnteros
      * @return
      */
-   def productoFoldRight(listaEnteros : Lista[Int]) : Double = ???
+   def productoFoldRight(listaEnteros : Lista[Int]) : Double = {
+     foldRight(listaEnteros,1)(_ * _)
+   }
 
    /**
      * Reemplaza la cabeza por nuevo valor. Se asume que si la lista esta vacia

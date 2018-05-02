@@ -16,7 +16,7 @@ object ListaTest extends Properties("ListaTest"){
         val lista : Lista[Int] = Lista(xs : _*)
         val longitudList = xs.length
         val longitudLista = Lista.longitud(lista)
-        longitudList ?= longitudLista
+        longitudList == longitudLista
       }
     }
 
@@ -27,7 +27,7 @@ object ListaTest extends Properties("ListaTest"){
         val lista : Lista[Int] = Lista(xs : _*)
         val sumaList = xs.map(x => x.toDouble).sum
         val sumaLista = Lista.sumaEnteros(lista)
-        sumaList ?= sumaLista
+        sumaList == sumaLista
       }
     }
 
@@ -37,7 +37,7 @@ object ListaTest extends Properties("ListaTest"){
         val lista : Lista[Int] = Lista(xs : _*)
         val multList = xs.map(x => x.toDouble).product
         val multLista = Lista.productoEnteros(lista)
-        multList ?= multLista
+        multList == multLista
       }
     }
 
@@ -47,7 +47,37 @@ object ListaTest extends Properties("ListaTest"){
         val lista : Lista[Int] = Lista(xs : _*)
         val concatList = xs:::xs
         val concatLista = Lista.toList(Lista.concatenar(lista,lista))
-        concatList ?= concatLista
+        concatList == concatLista
+      }
+    }
+
+  property("Fold right") =
+    forAll(secuenciaEnteros){
+      xs => {
+        val lista : Lista[Int] = Lista(xs : _*)
+        val foldRightList = xs.foldRight(0)(_ - _)
+        val foldRightLista = Lista.foldRight(lista,0)(_ - _)
+        foldRightList == foldRightLista
+      }
+    }
+
+  property("Suma fold right") =
+    forAll(secuenciaEnteros){
+      xs => {
+        val lista : Lista[Int] = Lista(xs : _*)
+        val sumaFoldRightList = xs.foldRight(0)(_ + _)
+        val sumaFoldRightLista = Lista.sumaFoldRight(lista)
+        sumaFoldRightList == sumaFoldRightLista
+      }
+    }
+
+  property("Producto fold right") =
+    forAll(secuenciaEnteros){
+      xs => {
+        val lista : Lista[Int] = Lista(xs : _*)
+        val prodFoldRightList = xs.product
+        val prodFoldRightLista = Lista.productoFoldRight(lista)
+        prodFoldRightList == prodFoldRightLista
       }
     }
 }
