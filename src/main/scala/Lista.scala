@@ -64,7 +64,12 @@ object Lista {
      * @param enteros
      * @return
      */
-   def productoEnteros(enteros : Lista[Int]) : Double = ???
+   def productoEnteros(enteros : Lista[Int]) : Double = {
+      enteros match {
+         case Nil => 1.0
+         case Cons(cabeza, cola) => cabeza.toDouble * productoEnteros(cola)
+      }
+   }
 
    /**
      * Metodo para agregar el contenido de dos listas
