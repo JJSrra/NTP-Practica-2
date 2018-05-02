@@ -103,7 +103,7 @@ object Funciones {
    */
   def busquedaBinaria[A](coleccion : Array[A], aBuscar: A, 
                        criterio : (A,A) => Boolean) : Int = {
-    
+
     @annotation.tailrec
     def go(coleccion : Array[A], acum: Int): Int = {
       val medio = coleccion.length / 2
@@ -122,6 +122,7 @@ object Funciones {
       }
     }
 
-    go(coleccion,0)
+    if (coleccion.length == 0) -1
+    else go(coleccion,0)
   }
 }
