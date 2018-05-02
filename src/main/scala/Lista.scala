@@ -1,11 +1,11 @@
 /**
-  * Interfaz generica para la lista
+  * Interfaz genérica para la lista
   * @tparam A
   */
 sealed trait Lista[+A]
 
 /**
-  * Objeto para definir lista vacia
+  * Objeto para definir lista vacía
   */
 case object Nil extends Lista[Nothing]
 
@@ -24,12 +24,15 @@ case class Cons[+A](cabeza : A, cola : Lista[A]) extends Lista[A]
 object Lista {
 
    /**
-     * Metodo para permitir crear listas sin usar new
+     * Método para permitir crear listas sin usar new
      * @param elementos secuencia de elementos a incluir en la lista
      * @tparam A
      * @return
      */
-   def apply[A](elementos : A*) : Lista[A] = ???
+   def apply[A](elementos : A*) : Lista[A] = {
+      if (elementos.isEmpty) Nil
+      else Cons(elementos.head, apply(elementos.tail : _*))
+   }
 
    /**
      * Obtiene la longitud de una lista
@@ -37,14 +40,24 @@ object Lista {
      * @tparam A
      * @return
      */
-   def longitud[A](lista : Lista[A]) : Int = ???
+   def longitud[A](lista : Lista[A]) : Int = {
+      lista match {
+         case Nil => 0
+         case Cons(cabeza, cola) => 1 + longitud(cola)
+      }
+   }
 
    /**
-     * Metodo para sumar los valores de una lista de enteros
+     * Método para sumar los valores de una lista de enteros
      * @param enteros
      * @return
      */
-   def sumaEnteros(enteros : Lista[Int]) : Double = ???
+   def sumaEnteros(enteros : Lista[Int]) : Double = {
+      enteros match {
+         case Nil => 0.0
+         case Cons(cabeza, cola) => cabeza.toDouble + sumaEnteros(cola)
+      }
+   }
 
    /**
      * Metodo para multiplicar los valores de una lista de enteros
@@ -146,6 +159,6 @@ object Lista {
      * @tparam B parametro de tipo del elemento neutro
      * @return
      */
-   @annotation.tailrec
+   //@annotation.tailrec
    def foldLeft[A, B](lista : Lista[A], neutro: B)(funcion : (B, A) => B): B = ???
 }
