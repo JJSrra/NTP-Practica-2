@@ -122,4 +122,17 @@ object ListaTest extends Properties("ListaTest"){
         listConEliminados == listaConEliminados
       }
     }
+
+  property("Eliminación mientras criterio") =
+    forAll(secuenciaEnteros){
+      xs => {
+        val lista : Lista[Int] = Lista(xs : _*)
+        val criterio = (a:Int) => a < 5
+
+        val listConEliminados = xs.dropWhile(criterio)
+        val listaConEliminados = Lista.toList(Lista.eliminarMientras(lista, criterio))
+
+        listConEliminados == listaConEliminados
+      }
+    }
 }

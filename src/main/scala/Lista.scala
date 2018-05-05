@@ -188,7 +188,12 @@ object Lista {
      * @tparam A tipo de datos a usar
      * @return
      */
-   def eliminarMientras[A](lista : Lista[A], criterio: A => Boolean) : Lista[A] = ???
+   def eliminarMientras[A](lista : Lista[A], criterio: A => Boolean) : Lista[A] = {
+     lista match {
+       case Nil => Nil
+       case Cons(cabeza,cola) => if (criterio(cabeza)) eliminarMientras(cola,criterio) else lista
+     }
+   }
 
    /**
      * Elimina el ultimo elemento de la lista. Aqui no se pueden compartir
