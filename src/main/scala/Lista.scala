@@ -143,7 +143,12 @@ object Lista {
      * @tparam A
      * @return
      */
-   def asignarCabeza[A](lista : Lista[A], cabezaNueva : A) : Lista[A] = ???
+   def asignarCabeza[A](lista : Lista[A], cabezaNueva : A) : Lista[A] = {
+     lista match {
+       case Nil => Cons(cabezaNueva, Nil)
+       case Cons(cabeza, cola) => Cons(cabezaNueva, cola)
+     }
+   }
 
    /**
      * Elimina el elemento cabeza de la lista
@@ -151,7 +156,12 @@ object Lista {
      * @tparam A
      * @return
      */
-   def tail[A](lista : Lista[A]): Lista[A] = ???
+   def tail[A](lista : Lista[A]): Lista[A] = {
+     lista match {
+       case Nil => Nil
+       case Cons(cabeza, cola) => cola
+     }
+   }
 
    /**
      * Elimina los n primeros elementos de una lista

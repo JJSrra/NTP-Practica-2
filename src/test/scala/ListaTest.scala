@@ -1,5 +1,5 @@
-import org.scalacheck.Properties
-import org.scalacheck.Prop.{forAll, throws, AnyOperators}
+import org.scalacheck.{Gen, Properties}
+import org.scalacheck.Prop.{AnyOperators, forAll, throws}
 import org.scalacheck.Gen._
 
 object ListaTest extends Properties("ListaTest"){
@@ -78,6 +78,35 @@ object ListaTest extends Properties("ListaTest"){
         val prodFoldRightList = xs.product
         val prodFoldRightLista = Lista.productoFoldRight(lista)
         prodFoldRightList == prodFoldRightLista
+      }
+    }
+
+  property("Asignación de cabeza") =
+    forAll(secuenciaEnteros){
+      xs => {
+        val lista : Lista[Int] = Lista(xs : _*)
+        val nuevaCabeza = Gen.choose(0,10)
+
+        val listCambiada = xs match {
+          case List() => List(nuevaCabeza)
+          case cabeza::cola => nuevaCabeza::cola
+        }
+
+        val listaCambiada = Lista.toList(Lista.asignarCabeza(lista, nuevaCabeza))
+
+        listCambiada == listaCambiada
+      }
+    }
+
+  property("Eliminación de cabeza") =
+    forAll(secuenciaEnteros){
+      xs => {
+        val lista : Lista[Int] = Lista(xs : _*)
+
+        val listSinCabeza = xs.tail
+        val listaSinCabeza = Lista.toList(Lista.tail(lista))
+
+        listSinCabeza == listaSinCabeza
       }
     }
 }
