@@ -219,6 +219,11 @@ object Lista {
      * @tparam B parametro de tipo del elemento neutro
      * @return
      */
-   //@annotation.tailrec
-   def foldLeft[A, B](lista : Lista[A], neutro: B)(funcion : (B, A) => B): B = ???
+   @annotation.tailrec
+   def foldLeft[A, B](lista : Lista[A], neutro: B)(funcion : (B, A) => B): B = {
+     lista match {
+       case Nil => neutro
+       case Cons(cabeza, cola) => foldLeft(cola, funcion(neutro, cabeza))(funcion)
+     }
+   }
 }

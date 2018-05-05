@@ -147,4 +147,14 @@ object ListaTest extends Properties("ListaTest"){
         listSinUltimo == listaSinUltimo
       }
     }
+
+  property("Fold left") =
+    forAll(secuenciaEnteros){
+      xs => {
+        val lista : Lista[Int] = Lista(xs : _*)
+        val foldLeftList = xs.foldLeft(0)(_ - _)
+        val foldLeftLista = Lista.foldLeft(lista,0)(_ - _)
+        foldLeftList == foldLeftLista
+      }
+    }
 }
