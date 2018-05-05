@@ -170,7 +170,15 @@ object Lista {
      * @tparam A tipo de datos
      * @return
      */
-   def eliminar[A](lista : Lista[A], n: Int) : Lista[A] = ???
+   def eliminar[A](lista : Lista[A], n: Int) : Lista[A] = {
+     if (n == 0) lista
+     else {
+       lista match {
+         case Nil => Nil
+         case Cons(cabeza, cola) => eliminar(cola, n-1)
+       }
+     }
+   }
 
    /**
      * Elimina elementos mientra se cumple la condicion pasada como
