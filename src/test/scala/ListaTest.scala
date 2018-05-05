@@ -109,4 +109,17 @@ object ListaTest extends Properties("ListaTest"){
         listSinCabeza == listaSinCabeza
       }
     }
+
+  property("Eliminación de N elementos") =
+    forAll(secuenciaEnteros){
+      xs => {
+        val lista : Lista[Int] = Lista(xs : _*)
+        val aEliminar = Gen.choose(0,15)
+
+        val listConEliminados = xs.drop(5)
+        val listaConEliminados = Lista.toList(Lista.eliminar(lista, 5))
+
+        listConEliminados == listaConEliminados
+      }
+    }
 }
