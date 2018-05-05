@@ -203,7 +203,12 @@ object Lista {
      * @tparam A tipo de datos de la lista
      * @return
      */
-   def eliminarUltimo[A](lista : Lista[A]) : Lista[A] = ???
+   def eliminarUltimo[A](lista : Lista[A]) : Lista[A] = {
+     lista match {
+       case Nil => Nil
+       case Cons(cabeza,cola) => if (longitud(lista)==1) Nil else Cons(cabeza,eliminarUltimo(cola))
+     }
+   }
 
    /**
      * foldLeft con recursividad tipo tail

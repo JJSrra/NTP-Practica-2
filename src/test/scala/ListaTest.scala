@@ -135,4 +135,16 @@ object ListaTest extends Properties("ListaTest"){
         listConEliminados == listaConEliminados
       }
     }
+
+  property("Eliminación de último elemento") =
+    forAll(secuenciaEnteros){
+      xs => {
+        val lista : Lista[Int] = Lista(xs : _*)
+
+        val listSinUltimo = xs.dropRight(1)
+        val listaSinUltimo = Lista.toList(Lista.eliminarUltimo(lista))
+
+        listSinUltimo == listaSinUltimo
+      }
+    }
 }
